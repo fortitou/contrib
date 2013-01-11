@@ -233,7 +233,7 @@ STDCONFIG
 	foreach my $veid (keys %vejif) {
 		next if $veid eq 'global';
 		my $color = $colorlist[$veprocessed++ % @colorlist];
-		my $vename = `vzlist -H -o name $veid`;
+		my $vename = `vzlist -H -o hostname $veid`;
 		($vename) = ($vename =~ m,(\w*),);
 
 		my $cnameobj = new Graphics::ColorNames(qw( X ));
