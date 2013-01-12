@@ -25,8 +25,14 @@ Unknown license
 
 =cut
 
+# Various tests
+test -d /proc/vz || echo "This server does not seem to run OpenVZ" && exit 1;
 
-ATTRIBUTE=`basename $0 | sed 's/^openvz_//g'`
+
+ATTRIBUTE=`basename $0 | sed 's/^openvz_sh_//g'`
+if [ $ATTRIBUTE = "" ]
+	ATTRIBUTE=`basename $0 | sed 's/^openvz_//g'`
+fi
 
 if [ "$1" = "autoconf" ]; then
         echo yes
@@ -57,7 +63,7 @@ fi
 
 
 vzlist -a -H -o hostname,$ATTRIBUTE,$ATTRIBUTE.s | awk '{ gsub(/\./,"_",$1)
- printf("%s %f\n", "'$ATTRIBUTE'"$1".value", $2*100/$3) }' 
+ 	printf("%s %f\n", "'$ATTRIBUTE'"$1".value", $2*100/$3) }' 
 
 
 exit 0
