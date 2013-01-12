@@ -28,14 +28,17 @@ fi
 
 if [ "$1" = "config" ]; then
         echo "graph_title $ATTRIBUTE"
-        echo "graph_args --base 1000 -l 0"
-        echo "graph_scale yes"
-        echo "graph_vlabel $ATTRIBUTE Value"
+        echo "graph_args --upper-limit 100 -l 0"
+        echo "graph_scale no"
+        echo "graph_vlabel $ATTRIBUTE %"
         echo "graph_category openvz"
         echo "graph_info This graph shows OpenVZ: $ATTRIBUTE"
         vzlist -a -H -o hostname | awk '{gsub(/\./,"_",$1)
         print("'$ATTRIBUTE'"$1".label "$1"\n" \
-        "'$ATTRIBUTE'"$1".info '$ATTRIBUTE' for VE "$1)}'
+        "'$ATTRIBUTE'"$1".info '$ATTRIBUTE' for VE "$1"\n" \
+        "'$ATTRIBUTE'"$1".warning 92\n" \
+        "'$ATTRIBUTE'"$1".critical 98\n" \
+        )}'
         exit 0
 fi
 
