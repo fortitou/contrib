@@ -2,27 +2,40 @@
 #
 # Plugin to plot OpenVZ VE Stats
 #
-# by Rene Weselowski
-# http://www.dead.at
-#
-# Mod by fortitou
-# http://www.fortitou.be
-#
-# Parameters:
-#
-#       config   (required)
-#       autoconf (optional - used by munin-config)
-#
-# $Log$
-#
-#%# family=auto
-#%# capabilities=autoconf
+
+: << =cut
+
+=head1 NAME
+
+openvz_sh_ - Plugin to measure OpenVZ percentages of vzlist -L with attr.s and attr.h  
+             See suggest for correct link values  
+
+=head1 AUTHOR
+
+Contributed by Rene Weselowski, mod by Bruno Félix
+
+=head1 LICENSE
+
+Unknown license
+
+=head1 MAGIC MARKERS
+
+ #%# family=auto
+ #%# capabilities=autoconf
+
+=cut
+
 
 ATTRIBUTE=`basename $0 | sed 's/^openvz_//g'`
 
-
 if [ "$1" = "autoconf" ]; then
         echo yes
+        exit 0
+fi
+
+if [ "$1" = "suggest" ]; then
+        echo diskspace
+        echo diskinodes
         exit 0
 fi
 
@@ -41,6 +54,7 @@ if [ "$1" = "config" ]; then
         )}'
         exit 0
 fi
+
 
 vzlist -a -H -o hostname,$ATTRIBUTE,$ATTRIBUTE.s | awk '{ gsub(/\./,"_",$1)
  printf("%s %f\n", "'$ATTRIBUTE'"$1".value", $2*100/$3) }' 
