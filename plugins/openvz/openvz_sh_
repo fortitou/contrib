@@ -32,7 +32,7 @@ if [ ! -d /proc/vz ] ; then
 fi
 
 ATTRIBUTE=`basename $0 | sed 's/^openvz_sh_//g'`
-if [ $ATTRIBUTE = "" ]; then
+if [ $ATTRIBUTE = `basename $0` ]; then
 	ATTRIBUTE=`basename $0 | sed 's/^openvz_//g'`
 fi
 
