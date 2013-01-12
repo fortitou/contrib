@@ -60,7 +60,7 @@ if ( $arg eq "autoconf" ) {
         print "graph_category OpenVZ\n";
 
 	# Dynamic config
-	my @result=`/usr/sbin/vzlist -H -a -s veid -o veid,name`;
+	my @result=`/usr/sbin/vzlist -H -a -s veid -o veid,hostname | awk '{gsub(/\./,"_", $2); print}'`;
 	my $A=0; # draw an area only under the first line
         
 	for (@result ) {
@@ -80,7 +80,7 @@ if ( $arg eq "autoconf" ) {
 
 } else {
         # Getting the values
-	my @result=`/usr/sbin/vzlist -H -s veid -o veid,name,laverage`;
+	my @result=`/usr/sbin/vzlist -H -s veid -o veid,hostname,laverage| awk '{gsub(/\./,"_", $2); print}'`;
 	my $A=0;
 
 	for (@result ) {
