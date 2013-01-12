@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Plugin to plot OpenVZ VE Stats
 #
@@ -26,11 +26,13 @@ Unknown license
 =cut
 
 # Various tests
-test -d /proc/vz || echo "This server does not seem to run OpenVZ" && exit 1;
-
+if [ ! -d /proc/vz ] ; then
+	echo "This server does not seem to run OpenVZ"
+	exit 1
+fi
 
 ATTRIBUTE=`basename $0 | sed 's/^openvz_sh_//g'`
-if [ $ATTRIBUTE = "" ]
+if [ $ATTRIBUTE = "" ]; then
 	ATTRIBUTE=`basename $0 | sed 's/^openvz_//g'`
 fi
 
